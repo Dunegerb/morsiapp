@@ -100,16 +100,14 @@ jobs:
       
       - name: Export IPA
         run: |
-          cd ios/App
-          mkdir -p build/ipa
-          cd build/App.xcarchive/Products/Applications
+          cd ios/App/build/App.xcarchive/Products/Applications
           mkdir Payload
           mv App.app Payload/
-          zip -r $PWD/../../ipa/MORSI.ipa Payload
+          zip -r ../../MORSI.ipa Payload
       
       - name: Upload IPA
         uses: actions/upload-artifact@v4
         with:
           name: morsi-ios.ipa
-          path: ios/App/build/ipa/MORSI.ipa
+          path: ios/App/build/MORSI.ipa
           retention-days: 30
