@@ -1,0 +1,470 @@
+.server-view-container {
+    min-height: 100vh;
+    background: var(--dark-bg);
+    display: flex;
+    flex-direction: column;
+}
+
+.server-header-bar {
+    display: flex;
+    align-items: center;
+    padding: 20px 24px;
+    background: var(--card-bg);
+    border-bottom: 2px solid var(--border-color);
+    gap: 20px;
+}
+
+.back-button {
+    padding: 10px 20px;
+    background: var(--darker-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.back-button:hover {
+    background: var(--border-color);
+    transform: translateX(-4px);
+}
+
+.server-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+}
+
+.server-icon-small {
+    font-size: 36px;
+}
+
+.server-title h2 {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+/* Counter Section */
+.counter-section {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+    padding: 24px;
+}
+
+.counter-main {
+    background: var(--card-bg);
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: var(--shadow);
+    border: 2px solid var(--border-color);
+}
+
+.days-display {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.days-number {
+    display: block;
+    font-size: 120px;
+    font-weight: 900;
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 12px;
+    text-shadow: 0 4px 20px rgba(108, 99, 255, 0.3);
+}
+
+.days-label {
+    display: block;
+    font-size: 24px;
+    color: var(--text-secondary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.rank-display {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.current-rank {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 32px;
+    background: rgba(108, 99, 255, 0.15);
+    border-radius: 16px;
+    font-size: 28px;
+    font-weight: 700;
+    border: 2px solid currentColor;
+}
+
+.rank-icon {
+    font-size: 40px;
+}
+
+.rank-progress {
+    margin-bottom: 32px;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.progress-bar-container {
+    height: 24px;
+    background: var(--darker-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid var(--border-color);
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: var(--gradient-1);
+    transition: width 0.5s ease;
+    box-shadow: 0 0 20px rgba(108, 99, 255, 0.5);
+}
+
+.reset-button {
+    width: 100%;
+    padding: 16px;
+    background: var(--darker-bg);
+    border: 2px solid var(--danger-color);
+    border-radius: 12px;
+    color: var(--danger-color);
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.reset-button:hover {
+    background: var(--danger-color);
+    color: white;
+    transform: scale(1.02);
+}
+
+/* Ranks Sidebar */
+.ranks-sidebar {
+    background: var(--card-bg);
+    border-radius: 24px;
+    padding: 24px;
+    box-shadow: var(--shadow);
+    border: 2px solid var(--border-color);
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.ranks-sidebar h3 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.ranks-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.rank-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: var(--darker-bg);
+    border-radius: 12px;
+    border: 2px solid;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.rank-item.locked {
+    opacity: 0.4;
+    border-color: var(--border-color);
+}
+
+.rank-item.unlocked {
+    opacity: 1;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.rank-item-icon {
+    font-size: 32px;
+}
+
+.rank-item-info {
+    flex: 1;
+}
+
+.rank-item-name {
+    display: block;
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.rank-item-days {
+    display: block;
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.unlocked-badge {
+    font-size: 24px;
+    color: var(--success-color);
+}
+
+/* Chat Section */
+.chat-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0 24px 24px;
+    min-height: 0;
+}
+
+.chat-title {
+    font-size: 24px;
+    margin-bottom: 16px;
+    color: var(--text-primary);
+}
+
+.messages-container {
+    flex: 1;
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 24px;
+    overflow-y: auto;
+    max-height: 400px;
+    margin-bottom: 16px;
+    border: 2px solid var(--border-color);
+}
+
+.message {
+    background: var(--darker-bg);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+    border-left: 4px solid var(--primary-color);
+    transition: all 0.2s ease;
+}
+
+.message:hover {
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.message.own-message {
+    border-left-color: var(--secondary-color);
+    background: rgba(255, 101, 132, 0.1);
+}
+
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.message-author {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--primary-color);
+}
+
+.message.own-message .message-author {
+    color: var(--secondary-color);
+}
+
+.message-time {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.message-content {
+    color: var(--text-primary);
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+.mention {
+    color: var(--primary-color);
+    font-weight: 700;
+    cursor: pointer;
+    padding: 2px 6px;
+    background: rgba(108, 99, 255, 0.15);
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.mention:hover {
+    background: rgba(108, 99, 255, 0.3);
+}
+
+.reply-button {
+    margin-top: 8px;
+    padding: 6px 12px;
+    background: var(--primary-color);
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.reply-button:hover {
+    background: var(--secondary-color);
+    transform: scale(1.05);
+}
+
+.message-input-container {
+    background: var(--card-bg);
+    border-radius: 16px;
+    border: 2px solid var(--border-color);
+    overflow: hidden;
+}
+
+.replying-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: rgba(108, 99, 255, 0.15);
+    border-bottom: 1px solid var(--border-color);
+    font-size: 13px;
+    color: var(--primary-color);
+}
+
+.replying-banner button {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 18px;
+    padding: 0 8px;
+    transition: color 0.2s ease;
+}
+
+.replying-banner button:hover {
+    color: var(--danger-color);
+}
+
+.message-input-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+}
+
+.message-input {
+    flex: 1;
+    padding: 14px 16px;
+    background: var(--darker-bg);
+    border: none;
+    border-radius: 10px;
+    color: var(--text-primary);
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+}
+
+.message-input:focus {
+    outline: none;
+}
+
+.message-input::placeholder {
+    color: var(--text-secondary);
+}
+
+.send-button {
+    width: 48px;
+    height: 48px;
+    background: var(--gradient-1);
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.send-button:hover {
+    transform: scale(1.1) rotate(15deg);
+    box-shadow: 0 6px 20px rgba(108, 99, 255, 0.5);
+}
+
+/* Mobile Responsive */
+@media (max-width: 1024px) {
+    .counter-section {
+        grid-template-columns: 1fr;
+    }
+
+    .ranks-sidebar {
+        max-height: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    .server-header-bar {
+        padding: 16px;
+    }
+
+    .server-title h2 {
+        font-size: 20px;
+    }
+
+    .server-icon-small {
+        font-size: 28px;
+    }
+
+    .counter-main {
+        padding: 24px;
+    }
+
+    .days-number {
+        font-size: 80px;
+    }
+
+    .days-label {
+        font-size: 18px;
+    }
+
+    .current-rank {
+        font-size: 20px;
+        padding: 12px 24px;
+    }
+
+    .rank-icon {
+        font-size: 32px;
+    }
+
+    .chat-title {
+        font-size: 20px;
+    }
+
+    .messages-container {
+        max-height: 300px;
+    }
+}

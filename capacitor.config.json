@@ -1,0 +1,23 @@
+{
+    "appId": "app.morsi.community",
+    "appName": "MORSI",
+    "webDir": "dist",
+    "bundledWebRuntime": false,
+    "server": {
+        "androidScheme": "https"
+    },
+    "plugins": {
+        "PushNotifications": {
+            "presentationOptions": [
+                "badge",
+                "sound",
+                "alert"
+            ]
+        },
+        "LocalNotifications": {
+            "smallIcon": "ic_stat_icon_config_sample",
+            "iconColor": "#6C63FF"
+        }
+    },
+    "cordova": {}
+}
