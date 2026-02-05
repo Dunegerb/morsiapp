@@ -13,8 +13,16 @@ function App() {
     const [selectedServer, setSelectedServer] = useState(null);
 
     useEffect(() => {
+        // Timeout de segurança - se não conectar em 10 segundos, continua mesmo assim
+        const safetyTimeout = setTimeout(() => {
+            console.log('Timeout reached - continuing without Firebase auth');
+            setLoading(false);
+        }, 10000);
+
         // Check authentication status
         const unsubscribe = onAuthChange(async (firebaseUser) => {
+            clearTimeout(safetyTimeout); // Cancelar timeout se conectou
+
             if (firebaseUser) {
                 setUser(firebaseUser);
 
@@ -28,9 +36,14 @@ function App() {
             } else {
                 // Sign in anonymously
                 try {
-                    await initializeAuth();
+                    await Promise.race([
+                        initializeAuth(),
+                        new Promise((_, reject) =>
+                            setTimeout(() => reject(new Error('Auth timeout')), 8000)
+                        )
+                    ]);
                 } catch (error) {
-                    console.error('Auto sign-in failed:', error);
+                    console.error('Auto sign-in failed or timed out:', error);
                 }
             }
             setLoading(false);
