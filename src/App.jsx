@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { onAuthChange, signInUser } from './services/firebase';
+import { onAuthChange, initializeAuth } from './services/firebase';
 import CreateIdentity from './components/CreateIdentity';
 import ServerSelection from './components/ServerSelection';
 import ServerView from './components/ServerView';
@@ -28,7 +28,7 @@ function App() {
             } else {
                 // Sign in anonymously
                 try {
-                    await signInUser();
+                    await initializeAuth();
                 } catch (error) {
                     console.error('Auto sign-in failed:', error);
                 }
