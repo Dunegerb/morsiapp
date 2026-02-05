@@ -2,7 +2,6 @@
     "appId": "app.morsi.community",
     "appName": "MORSI",
     "webDir": "dist",
-    "bundledWebRuntime": false,
     "server": {
         "androidScheme": "https"
     },
