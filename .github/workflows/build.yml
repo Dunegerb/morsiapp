@@ -105,7 +105,7 @@ jobs:
           cd build/App.xcarchive/Products/Applications
           mkdir Payload
           mv App.app Payload/
-          zip -r ../../../../ipa/MORSI.ipa Payload
+          zip -r $PWD/../../ipa/MORSI.ipa Payload
       
       - name: Upload IPA
         uses: actions/upload-artifact@v4
