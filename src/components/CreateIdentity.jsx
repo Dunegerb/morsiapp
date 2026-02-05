@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { createUserProfile } from '../services/firebase';
+import { saveUserProfile } from '../services/firebase';
 import '../styles/create-identity.css';
 
 function CreateIdentity({ onComplete }) {
@@ -30,7 +30,7 @@ function CreateIdentity({ onComplete }) {
         setIsAnimating(true);
 
         try {
-            const userId = await createUserProfile({
+            const profile = await saveUserProfile({
                 ...formData,
                 cleanDays: 0,
                 rank: 'Iniciante',
@@ -39,7 +39,7 @@ function CreateIdentity({ onComplete }) {
 
             setTimeout(() => {
                 onComplete({
-                    id: userId,
+                    id: profile.userId,
                     ...formData,
                     cleanDays: 0,
                     rank: 'Iniciante'
