@@ -105,6 +105,13 @@ jobs:
           mv App.app Payload/
           zip -r ../../MORSI.ipa Payload
       
+      - name: Debug - List files
+        run: |
+          echo "Listing ios/App/build directory:"
+          ls -la ios/App/build/
+          echo "Finding all .ipa files:"
+          find ios/App -name "*.ipa"
+      
       - name: Upload IPA
         uses: actions/upload-artifact@v4
         with:
