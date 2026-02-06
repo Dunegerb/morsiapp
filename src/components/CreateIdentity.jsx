@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { saveUserProfile } from '../services/firebase';
+import Button from './ui/Button';
+import { successNotification, lightImpact } from '../utils/haptics';
 import '../styles/create-identity.css';
 
 function CreateIdentity({ onComplete }) {
@@ -18,7 +20,10 @@ function CreateIdentity({ onComplete }) {
         setFormData(prev => ({ ...prev, [field]: value }));
     };
 
-    const handleNext = () => {
+    const handleNext = async () => {
+        // Haptic feedback em cada step
+        await lightImpact();
+
         if (step < 3) {
             setStep(step + 1);
         } else {
@@ -26,8 +31,21 @@ function CreateIdentity({ onComplete }) {
         }
     };
 
+    const handleBack = async () => {
+        await lightImpact();
+        setStep(step - 1);
+    };
+
+    const handleAvatarSelect = async (avatar) => {
+        await lightImpact();
+        handleInputChange('avatar', avatar);
+    };
+
     const handleSubmit = async () => {
         setIsAnimating(true);
+
+        // Haptic de sucesso ao completar
+        await successNotification();
 
         try {
             const profile = await saveUserProfile({
@@ -70,23 +88,23 @@ function CreateIdentity({ onComplete }) {
                         <div className="id-avatar">{formData.avatar}</div>
                         <div className="id-field">
                             <span className="id-label">Nome:</span>
-                            <span className="id-value typing">{formData.name}</span>
+                            <span className="id-value">{formData.name}</span>
                         </div>
                         <div className="id-field">
                             <span className="id-label">Idade:</span>
-                            <span className="id-value typing delay-1">{formData.age}</span>
+                            <span className="id-value">{formData.age}</span>
                         </div>
                         <div className="id-field">
                             <span className="id-label">Vício:</span>
-                            <span className="id-value typing delay-2">{formData.addiction}</span>
+                            <span className="id-value">{formData.addiction}</span>
                         </div>
                         <div className="id-field">
                             <span className="id-label">Dias Limpo:</span>
-                            <span className="id-value typing delay-3">0</span>
+                            <span className="id-value">0</span>
                         </div>
                         <div className="id-field">
                             <span className="id-label">Patente:</span>
-                            <span className="id-value typing delay-4">Iniciante</span>
+                            <span className="id-value">Iniciante</span>
                         </div>
                         <div className="id-stamp">✓ VERIFICADO</div>
                     </div>
@@ -103,13 +121,13 @@ function CreateIdentity({ onComplete }) {
                 <p className="tagline">Sua jornada de superação começa aqui</p>
             </div>
 
-            <div className="progress-bar">
+            <div className="progress-bar" role="progressbar" aria-valuenow={((step + 1) / 4) * 100} aria-valuemin="0" aria-valuemax="100">
                 <div className="progress" style={{ width: `${((step + 1) / 4) * 100}%` }}></div>
             </div>
 
             <div className="identity-form">
                 {step === 0 && (
-                    <div className="form-step fade-in">
+                    <div className="form-step" key="step-0">
                         <h2>Qual é o seu nome?</h2>
                         <input
                             type="text"
@@ -117,13 +135,15 @@ function CreateIdentity({ onComplete }) {
                             placeholder="Digite seu nome"
                             value={formData.name}
                             onChange={(e) => handleInputChange('name', e.target.value)}
+                            onKeyPress={(e) => e.key === 'Enter' && canProceed() && handleNext()}
                             autoFocus
+                            aria-label="Digite seu nome"
                         />
                     </div>
                 )}
 
                 {step === 1 && (
-                    <div className="form-step fade-in">
+                    <div className="form-step" key="step-1">
                         <h2>Quantos anos você tem?</h2>
                         <input
                             type="number"
@@ -131,20 +151,33 @@ function CreateIdentity({ onComplete }) {
                             placeholder="Sua idade"
                             value={formData.age}
                             onChange={(e) => handleInputChange('age', e.target.value)}
+                            onKeyPress={(e) => e.key === 'Enter' && canProceed() && handleNext()}
                             autoFocus
+                            min="1"
+                            max="120"
+                            aria-label="Digite sua idade"
                         />
                     </div>
                 )}
 
                 {step === 2 && (
-                    <div className="form-step fade-in">
+                    <div className="form-step" key="step-2">
                         <h2>Escolha seu avatar</h2>
-                        <div className="avatar-grid">
+                        <div className="avatar-grid" role="radiogroup" aria-label="Escolha seu avatar">
                             {avatars.map((avatar, index) => (
                                 <div
                                     key={index}
                                     className={`avatar-option ${formData.avatar === avatar ? 'selected' : ''}`}
-                                    onClick={() => handleInputChange('avatar', avatar)}
+                                    onClick={() => handleAvatarSelect(avatar)}
+                                    role="radio"
+                                    aria-checked={formData.avatar === avatar}
+                                    tabIndex={0}
+                                    onKeyPress={(e) => {
+                                        if (e.key === 'Enter' || e.key === ' ') {
+                                            e.preventDefault();
+                                            handleAvatarSelect(avatar);
+                                        }
+                                    }}
                                 >
                                     {avatar}
                                 </div>
@@ -154,7 +187,7 @@ function CreateIdentity({ onComplete }) {
                 )}
 
                 {step === 3 && (
-                    <div className="form-step fade-in">
+                    <div className="form-step" key="step-3">
                         <h2>Qual vício você quer superar?</h2>
                         <input
                             type="text"
@@ -162,7 +195,9 @@ function CreateIdentity({ onComplete }) {
                             placeholder="Ex: Cigarro, Álcool, Jogos..."
                             value={formData.addiction}
                             onChange={(e) => handleInputChange('addiction', e.target.value)}
+                            onKeyPress={(e) => e.key === 'Enter' && canProceed() && handleNext()}
                             autoFocus
+                            aria-label="Digite o vício que você quer superar"
                         />
                     </div>
                 )}
@@ -170,17 +205,22 @@ function CreateIdentity({ onComplete }) {
 
             <div className="form-actions">
                 {step > 0 && (
-                    <button className="btn-secondary" onClick={() => setStep(step - 1)}>
-                        Voltar
-                    </button>
+                    <Button
+                        variant="secondary"
+                        onClick={handleBack}
+                        ariaLabel="Voltar para etapa anterior"
+                    >
+                        ← Voltar
+                    </Button>
                 )}
-                <button
-                    className="btn-primary"
+                <Button
+                    variant="primary"
                     onClick={handleNext}
                     disabled={!canProceed()}
+                    ariaLabel={step < 3 ? 'Próxima etapa' : 'Criar identidade'}
                 >
-                    {step < 3 ? 'Próximo' : 'Criar Identidade'}
-                </button>
+                    {step < 3 ? 'Próximo →' : 'Criar Identidade'}
+                </Button>
             </div>
         </div>
     );

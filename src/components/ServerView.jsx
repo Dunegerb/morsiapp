@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { sendMessage, getMessages } from '../services/firebase';
+import Button from './ui/Button';
+import { lightImpact, mediumImpact, successNotification } from '../utils/haptics';
 import '../styles/server-view.css';
 
 const RANKS = [
@@ -83,7 +85,10 @@ function ServerView({ server, userProfile, onBack }) {
         return (progress / range) * 100;
     };
 
-    const handleReset = () => {
+    const handleReset = async () => {
+        // Haptic forte antes de ação destrutiva
+        await mediumImpact();
+
         if (confirm('Tem certeza que deseja resetar sua contagem? Essa ação não pode ser desfeita.')) {
             const newStart = new Date();
             setStartDate(newStart);
@@ -101,6 +106,9 @@ function ServerView({ server, userProfile, onBack }) {
             : newMessage;
 
         try {
+            // Haptic de sucesso ao enviar mensagem
+            await successNotification();
+
             await sendMessage(server.id, messageText, userProfile.id, userProfile.name);
             setNewMessage('');
             setReplyingTo(null);
@@ -109,12 +117,14 @@ function ServerView({ server, userProfile, onBack }) {
         }
     };
 
-    const handleReply = (message) => {
+    const handleReply = async (message) => {
+        await lightImpact();
         setReplyingTo(message);
         setNewMessage('');
     };
 
-    const handleMention = (userName) => {
+    const handleMention = async (userName) => {
+        await lightImpact();
         setNewMessage(prev => `${prev}@${userName} `);
     };
 
@@ -125,7 +135,13 @@ function ServerView({ server, userProfile, onBack }) {
     return (
         <div className="server-view-container">
             <div className="server-header-bar">
-                <button className="back-button" onClick={onBack}>← Voltar</button>
+                <Button
+                    variant="secondary"
+                    onClick={onBack}
+                    ariaLabel="Voltar para seleção de comunidades"
+                >
+                    ← Voltar
+                </Button>
                 <div className="server-title">
                     <span className="server-icon-small">{server.icon}</span>
                     <h2>{server.name}</h2>
@@ -164,9 +180,13 @@ function ServerView({ server, userProfile, onBack }) {
                         </div>
                     )}
 
-                    <button className="reset-button" onClick={handleReset}>
+                    <Button
+                        variant="danger"
+                        onClick={handleReset}
+                        ariaLabel="Resetar contagem de dias limpos"
+                    >
                         🔄 Resetar Contagem
-                    </button>
+                    </Button>
                 </div>
 
                 <div className="ranks-sidebar">

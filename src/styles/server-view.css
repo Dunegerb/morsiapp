@@ -1,421 +1,454 @@
+/**
+ * ServerView Component Styles
+ * Redesign aplicando:
+ * - Hierarquia visual clara (uma intenção primária: o contador)
+ * - Motion semântico
+ * - Feedback visual imediato
+ * - Espaçamento 8pt grid
+ */
+
+/* ============================================
+   CONTAINER
+   ============================================ */
+
 .server-view-container {
     min-height: 100vh;
-    background: var(--dark-bg);
+    background: var(--color-bg-primary);
     display: flex;
     flex-direction: column;
 }
 
+/* ============================================
+   HEADER BAR
+   ============================================ */
+
 .server-header-bar {
     display: flex;
     align-items: center;
-    padding: 20px 24px;
-    background: var(--card-bg);
-    border-bottom: 2px solid var(--border-color);
-    gap: 20px;
-}
+    padding: var(--spacing-5) var(--spacing-6);
+    background: var(--color-bg-secondary);
+    border-bottom: 1px solid var(--color-border-subtle);
+    gap: var(--spacing-4);
 
-.back-button {
-    padding: 10px 20px;
-    background: var(--darker-bg);
-    border: 2px solid var(--border-color);
-    border-radius: 10px;
-    color: var(--text-primary);
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.back-button:hover {
-    background: var(--border-color);
-    transform: translateX(-4px);
+    animation: fadeIn var(--duration-base) var(--ease-out);
 }
 
 .server-title {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: var(--spacing-3);
     flex: 1;
 }
 
 .server-icon-small {
-    font-size: 36px;
+    font-size: 40px;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .server-title h2 {
-    font-size: 28px;
-    font-weight: 700;
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin: 0;
 }
 
-/* Counter Section */
+/* ============================================
+   COUNTER SECTION - HIERARQUIA PRIMÁRIA
+   ============================================ */
+
 .counter-section {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    gap: 24px;
-    padding: 24px;
+    gap: var(--spacing-6);
+    padding: var(--spacing-6);
+
+    animation: fadeIn var(--duration-slow) var(--ease-out) 100ms;
 }
 
 .counter-main {
-    background: var(--card-bg);
-    border-radius: 24px;
-    padding: 40px;
-    box-shadow: var(--shadow);
-    border: 2px solid var(--border-color);
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-10);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--color-border-subtle);
 }
 
+/* Contador - Elemento dominante visual */
 .days-display {
     text-align: center;
-    margin-bottom: 32px;
+    margin-bottom: var(--spacing-8);
 }
 
 .days-number {
     display: block;
     font-size: 120px;
-    font-weight: 900;
-    background: var(--gradient-1);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-accent);
     line-height: 1;
-    margin-bottom: 12px;
-    text-shadow: 0 4px 20px rgba(108, 99, 255, 0.3);
+    margin-bottom: var(--spacing-3);
+
+    /* Subtle glow para ênfase */
+    text-shadow: 0 0 40px rgba(99, 102, 241, 0.3);
 }
 
 .days-label {
     display: block;
-    font-size: 24px;
-    color: var(--text-secondary);
-    font-weight: 600;
+    font-size: var(--font-size-xl);
+    color: var(--color-text-secondary);
+    font-weight: var(--font-weight-medium);
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: var(--letter-spacing-wide);
 }
 
+/* Rank Display */
 .rank-display {
     text-align: center;
-    margin-bottom: 32px;
+    margin-bottom: var(--spacing-8);
 }
 
 .current-rank {
     display: inline-flex;
     align-items: center;
-    gap: 12px;
-    padding: 16px 32px;
-    background: rgba(108, 99, 255, 0.15);
-    border-radius: 16px;
-    font-size: 28px;
-    font-weight: 700;
-    border: 2px solid currentColor;
+    gap: var(--spacing-3);
+    padding: var(--spacing-4) var(--spacing-8);
+    background: var(--color-bg-tertiary);
+    border-radius: var(--radius-lg);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    border: 2px solid var(--color-accent);
+    color: var(--color-accent);
 }
 
 .rank-icon {
     font-size: 40px;
 }
 
+/* Progresso para próxima rank */
 .rank-progress {
-    margin-bottom: 32px;
+    margin-bottom: var(--spacing-8);
 }
 
 .progress-info {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 12px;
-    font-size: 14px;
-    color: var(--text-secondary);
-    font-weight: 600;
+    margin-bottom: var(--spacing-3);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-tertiary);
+    font-weight: var(--font-weight-medium);
 }
 
 .progress-bar-container {
-    height: 24px;
-    background: var(--darker-bg);
-    border-radius: 12px;
+    height: 8px;
+    background: var(--color-gray-800);
+    border-radius: var(--radius-full);
     overflow: hidden;
-    border: 2px solid var(--border-color);
 }
 
 .progress-bar-fill {
     height: 100%;
-    background: var(--gradient-1);
-    transition: width 0.5s ease;
-    box-shadow: 0 0 20px rgba(108, 99, 255, 0.5);
+    background: var(--color-accent);
+    transition: width var(--duration-slow) var(--ease-out);
+    border-radius: var(--radius-full);
+    box-shadow: 0 0 8px rgba(99, 102, 241, 0.4);
 }
 
-.reset-button {
-    width: 100%;
-    padding: 16px;
-    background: var(--darker-bg);
-    border: 2px solid var(--danger-color);
-    border-radius: 12px;
-    color: var(--danger-color);
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
+/* ============================================
+   RANKS SIDEBAR
+   ============================================ */
 
-.reset-button:hover {
-    background: var(--danger-color);
-    color: white;
-    transform: scale(1.02);
-}
-
-/* Ranks Sidebar */
 .ranks-sidebar {
-    background: var(--card-bg);
-    border-radius: 24px;
-    padding: 24px;
-    box-shadow: var(--shadow);
-    border: 2px solid var(--border-color);
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-6);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--color-border-subtle);
     max-height: 600px;
     overflow-y: auto;
 }
 
 .ranks-sidebar h3 {
-    font-size: 20px;
-    margin-bottom: 20px;
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-5);
     text-align: center;
-    color: var(--text-secondary);
+    color: var(--color-text-secondary);
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: var(--letter-spacing-wide);
+    font-weight: var(--font-weight-semibold);
 }
 
 .ranks-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: var(--spacing-3);
 }
 
 .rank-item {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 16px;
-    background: var(--darker-bg);
-    border-radius: 12px;
-    border: 2px solid;
-    transition: all 0.3s ease;
-    position: relative;
+    gap: var(--spacing-3);
+    padding: var(--spacing-4);
+    background: var(--color-bg-tertiary);
+    border-radius: var(--radius-lg);
+    border: 2px solid var(--color-border-subtle);
+    transition: var(--transition-fast);
+    transition-property: opacity, transform, border-color;
 }
 
 .rank-item.locked {
     opacity: 0.4;
-    border-color: var(--border-color);
 }
 
 .rank-item.unlocked {
     opacity: 1;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px var(--color-accent-subtle);
 }
 
 .rank-item-icon {
     font-size: 32px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .rank-item-info {
     flex: 1;
+    min-width: 0;
 }
 
 .rank-item-name {
     display: block;
-    font-weight: 700;
-    font-size: 16px;
-    margin-bottom: 4px;
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-size-base);
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-1);
 }
 
 .rank-item-days {
     display: block;
-    font-size: 12px;
-    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-tertiary);
 }
 
 .unlocked-badge {
     font-size: 24px;
-    color: var(--success-color);
+    color: var(--color-success);
 }
 
-/* Chat Section */
+/* ============================================
+   CHAT SECTION
+   ============================================ */
+
 .chat-section {
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding: 0 24px 24px;
+    padding: 0 var(--spacing-6) var(--spacing-6);
     min-height: 0;
 }
 
 .chat-title {
-    font-size: 24px;
-    margin-bottom: 16px;
-    color: var(--text-primary);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--spacing-4);
+    color: var(--color-text-primary);
 }
 
 .messages-container {
     flex: 1;
-    background: var(--card-bg);
-    border-radius: 20px;
-    padding: 24px;
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-6);
     overflow-y: auto;
     max-height: 400px;
-    margin-bottom: 16px;
-    border: 2px solid var(--border-color);
+    margin-bottom: var(--spacing-4);
+    border: 1px solid var(--color-border-subtle);
 }
 
+/* Mensagens com feedback visual claro */
 .message {
-    background: var(--darker-bg);
-    border-radius: 12px;
-    padding: 16px;
-    margin-bottom: 12px;
-    border-left: 4px solid var(--primary-color);
-    transition: all 0.2s ease;
+    background: var(--color-bg-tertiary);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-4);
+    margin-bottom: var(--spacing-3);
+    border-left: 3px solid var(--color-accent);
+    transition: var(--transition-fast);
+    transition-property: transform, box-shadow;
+
+    /* Stagger animation */
+    animation: slideInLeft var(--duration-base) var(--ease-out);
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 .message:hover {
     transform: translateX(4px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--shadow-md);
 }
 
 .message.own-message {
-    border-left-color: var(--secondary-color);
-    background: rgba(255, 101, 132, 0.1);
+    border-left-color: var(--color-text-primary);
+    background: var(--color-gray-700);
 }
 
 .message-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 8px;
+    margin-bottom: var(--spacing-2);
 }
 
 .message-author {
-    font-weight: 700;
-    font-size: 14px;
-    color: var(--primary-color);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-size-sm);
+    color: var(--color-accent);
 }
 
 .message.own-message .message-author {
-    color: var(--secondary-color);
+    color: var(--color-text-primary);
 }
 
 .message-time {
-    font-size: 12px;
-    color: var(--text-secondary);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-tertiary);
 }
 
 .message-content {
-    color: var(--text-primary);
-    line-height: 1.5;
+    color: var(--color-text-primary);
+    line-height: var(--line-height-relaxed);
     word-wrap: break-word;
+    font-size: var(--font-size-base);
 }
 
 .mention {
-    color: var(--primary-color);
-    font-weight: 700;
+    color: var(--color-accent);
+    font-weight: var(--font-weight-semibold);
     cursor: pointer;
-    padding: 2px 6px;
-    background: rgba(108, 99, 255, 0.15);
-    border-radius: 4px;
-    transition: all 0.2s ease;
+    padding: 2px var(--spacing-2);
+    background: var(--color-accent-subtle);
+    border-radius: var(--radius-sm);
+    transition: background-color var(--duration-fast) var(--ease-out);
 }
 
 .mention:hover {
-    background: rgba(108, 99, 255, 0.3);
+    background: rgba(99, 102, 241, 0.3);
 }
 
-.reply-button {
-    margin-top: 8px;
-    padding: 6px 12px;
-    background: var(--primary-color);
-    border: none;
-    border-radius: 6px;
-    color: white;
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.reply-button:hover {
-    background: var(--secondary-color);
-    transform: scale(1.05);
-}
-
+/* Input de mensagem */
 .message-input-container {
-    background: var(--card-bg);
-    border-radius: 16px;
-    border: 2px solid var(--border-color);
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-xl);
+    border: 2px solid var(--color-border-subtle);
     overflow: hidden;
+    transition: border-color var(--duration-fast) var(--ease-out);
+}
+
+.message-input-container:focus-within {
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-accent);
 }
 
 .replying-banner {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 16px;
-    background: rgba(108, 99, 255, 0.15);
-    border-bottom: 1px solid var(--border-color);
-    font-size: 13px;
-    color: var(--primary-color);
+    padding: var(--spacing-3) var(--spacing-4);
+    background: var(--color-accent-subtle);
+    border-bottom: 1px solid var(--color-border-subtle);
+    font-size: var(--font-size-sm);
+    color: var(--color-accent);
+    font-weight: var(--font-weight-medium);
 }
 
 .replying-banner button {
     background: none;
     border: none;
-    color: var(--text-secondary);
+    color: var(--color-text-tertiary);
     cursor: pointer;
     font-size: 18px;
-    padding: 0 8px;
-    transition: color 0.2s ease;
+    padding: 0 var(--spacing-2);
+    transition: color var(--duration-fast) var(--ease-out);
 }
 
 .replying-banner button:hover {
-    color: var(--danger-color);
+    color: var(--color-danger);
 }
 
 .message-input-box {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 12px;
+    gap: var(--spacing-3);
+    padding: var(--spacing-3);
 }
 
 .message-input {
     flex: 1;
-    padding: 14px 16px;
-    background: var(--darker-bg);
+    padding: var(--spacing-3) var(--spacing-4);
+    background: var(--color-bg-tertiary);
     border: none;
-    border-radius: 10px;
-    color: var(--text-primary);
-    font-size: 15px;
-    font-family: 'Inter', sans-serif;
+    border-radius: var(--radius-lg);
+    color: var(--color-text-primary);
+    font-size: var(--font-size-base);
+    font-family: var(--font-primary);
+    min-height: var(--touch-target-min);
 }
 
 .message-input:focus {
     outline: none;
+    background: var(--color-gray-700);
 }
 
 .message-input::placeholder {
-    color: var(--text-secondary);
+    color: var(--color-text-tertiary);
 }
 
 .send-button {
     width: 48px;
     height: 48px;
-    background: var(--gradient-1);
+    background: var(--color-accent);
     border: none;
-    border-radius: 12px;
+    border-radius: var(--radius-lg);
     color: white;
     font-size: 20px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: var(--transition-fast);
+    transition-property: transform, background-color, box-shadow;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
 }
 
 .send-button:hover {
-    transform: scale(1.1) rotate(15deg);
-    box-shadow: 0 6px 20px rgba(108, 99, 255, 0.5);
+    background: var(--color-accent-hover);
+    transform: scale(1.08);
+    box-shadow: var(--shadow-md);
 }
 
-/* Mobile Responsive */
+.send-button:active {
+    transform: scale(0.95);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
 @media (max-width: 1024px) {
     .counter-section {
         grid-template-columns: 1fr;
@@ -428,19 +461,26 @@
 
 @media (max-width: 768px) {
     .server-header-bar {
-        padding: 16px;
+        padding: var(--spacing-4);
     }
 
     .server-title h2 {
-        font-size: 20px;
+        font-size: var(--font-size-xl);
     }
 
     .server-icon-small {
-        font-size: 28px;
+        font-size: 32px;
+        width: 40px;
+        height: 40px;
+    }
+
+    .counter-section {
+        padding: var(--spacing-4);
+        gap: var(--spacing-4);
     }
 
     .counter-main {
-        padding: 24px;
+        padding: var(--spacing-6);
     }
 
     .days-number {
@@ -448,23 +488,28 @@
     }
 
     .days-label {
-        font-size: 18px;
+        font-size: var(--font-size-lg);
     }
 
     .current-rank {
-        font-size: 20px;
-        padding: 12px 24px;
+        font-size: var(--font-size-lg);
+        padding: var(--spacing-3) var(--spacing-6);
     }
 
     .rank-icon {
         font-size: 32px;
     }
 
+    .chat-section {
+        padding: 0 var(--spacing-4) var(--spacing-4);
+    }
+
     .chat-title {
-        font-size: 20px;
+        font-size: var(--font-size-lg);
     }
 
     .messages-container {
         max-height: 300px;
+        padding: var(--spacing-4);
     }
 }

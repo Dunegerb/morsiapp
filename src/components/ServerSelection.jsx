@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getServers } from '../services/firebase';
+import { lightImpact } from '../utils/haptics';
 import '../styles/server-selection.css';
 
 // Servidores padrão caso Firebase não esteja configurado
@@ -28,6 +29,12 @@ function ServerSelection({ userProfile, onServerSelect }) {
 
         return () => unsubscribe();
     }, []);
+
+    const handleServerClick = async (server) => {
+        // Haptic feedback ao selecionar servidor
+        await lightImpact();
+        onServerSelect(server);
+    };
 
     const filteredServers = servers.filter(server =>
         server.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -58,6 +65,7 @@ function ServerSelection({ userProfile, onServerSelect }) {
                     placeholder="🔍 Buscar comunidade..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
+                    aria-label="Buscar comunidade"
                 />
             </div>
 
@@ -66,7 +74,16 @@ function ServerSelection({ userProfile, onServerSelect }) {
                     <div
                         key={server.id}
                         className="server-card"
-                        onClick={() => onServerSelect(server)}
+                        onClick={() => handleServerClick(server)}
+                        role="button"
+                        tabIndex={0}
+                        onKeyPress={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                handleServerClick(server);
+                            }
+                        }}
+                        aria-label={`Entrar na comunidade ${server.name}`}
                     >
                         <div className="server-icon">{server.icon}</div>
                         <div className="server-info">

@@ -1,0 +1,209 @@
+/**
+ * Button Component Styles
+ * Feedback multicanal: visual + motion + haptics
+ */
+
+.button {
+    /* Layout */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-2);
+    position: relative;
+
+    /* Dimensões - Lei de Fitts */
+    min-height: var(--touch-target-min);
+    padding: var(--spacing-3) var(--spacing-6);
+
+    /* Tipografia */
+    font-family: var(--font-primary);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+
+    /* Visual */
+    border: 2px solid transparent;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    user-select: none;
+
+    /* Transição */
+    transition: var(--transition-fast);
+    transition-property: transform, background-color, border-color, box-shadow, opacity;
+
+    /* Previne double-tap zoom em iOS */
+    touch-action: manipulation;
+}
+
+/* ============================================
+   VARIANTES
+   ============================================ */
+
+/* Primary button */
+.button--primary {
+    background: var(--color-accent);
+    color: white;
+    border-color: var(--color-accent);
+}
+
+.button--primary:hover:not(:disabled):not(.button--loading) {
+    background: var(--color-accent-hover);
+    border-color: var(--color-accent-hover);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.button--primary:active:not(:disabled):not(.button--loading) {
+    background: var(--color-accent-pressed);
+    transform: translateY(0) scale(0.98);
+}
+
+.button--primary:focus-visible {
+    outline: none;
+    box-shadow: var(--shadow-accent-strong);
+}
+
+/* Secondary button */
+.button--secondary {
+    background: var(--color-bg-tertiary);
+    color: var(--color-text-primary);
+    border-color: var(--color-border-medium);
+}
+
+.button--secondary:hover:not(:disabled):not(.button--loading) {
+    background: var(--color-gray-700);
+    border-color: var(--color-border-strong);
+    transform: translateY(-1px);
+}
+
+.button--secondary:active:not(:disabled):not(.button--loading) {
+    transform: translateY(0) scale(0.98);
+}
+
+.button--secondary:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--color-gray-700);
+}
+
+/* Ghost button */
+.button--ghost {
+    background: transparent;
+    color: var(--color-text-secondary);
+    border-color: transparent;
+}
+
+.button--ghost:hover:not(:disabled):not(.button--loading) {
+    background: var(--color-bg-tertiary);
+    color: var(--color-text-primary);
+}
+
+.button--ghost:active:not(:disabled):not(.button--loading) {
+    transform: scale(0.98);
+}
+
+/* Danger button */
+.button--danger {
+    background: var(--color-danger);
+    color: white;
+    border-color: var(--color-danger);
+}
+
+.button--danger:hover:not(:disabled):not(.button--loading) {
+    background: #c62828;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.button--danger:active:not(:disabled):not(.button--loading) {
+    transform: translateY(0) scale(0.98);
+}
+
+/* ============================================
+   ESTADOS
+   ============================================ */
+
+/* Disabled */
+.button:disabled,
+.button--disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.button--primary:disabled {
+    background: var(--color-gray-700);
+    border-color: var(--color-gray-700);
+    color: var(--color-gray-500);
+}
+
+.button--secondary:disabled {
+    background: var(--color-bg-tertiary);
+    border-color: var(--color-border-subtle);
+    color: var(--color-text-tertiary);
+}
+
+/* Loading */
+.button--loading {
+    cursor: wait;
+    pointer-events: none;
+}
+
+.button__spinner {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button__spinner svg {
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+}
+
+.button__spinner circle {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 3;
+    stroke-dasharray: 60;
+    stroke-dashoffset: 20;
+    stroke-linecap: round;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.button__text--hidden {
+    opacity: 0;
+}
+
+/* ============================================
+   TAMANHOS (opcional)
+   ============================================ */
+
+.button--small {
+    min-height: 36px;
+    padding: var(--spacing-2) var(--spacing-4);
+    font-size: var(--font-size-sm);
+}
+
+.button--large {
+    min-height: 52px;
+    padding: var(--spacing-4) var(--spacing-8);
+    font-size: var(--font-size-lg);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+    .button {
+        padding: var(--spacing-3) var(--spacing-5);
+    }
+}
